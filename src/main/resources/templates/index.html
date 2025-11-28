@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泰星小区管理系统 - 首页</title>
+    <!-- 引入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 使用 Inter 字体并设置背景 */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+        }
+        /* 简单过渡效果让按钮更平滑 */
+        .card-link {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+<div class="min-h-screen flex flex-col">
+
+    <!-- 顶部导航栏 (Header) -->
+    <header class="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-10">
+        <div class="text-2xl font-bold text-gray-800">
+            <span class="text-indigo-600">泰星小区</span>管理系统
+        </div>
+        <!-- 退出按钮 -->
+        <a href="/logout"
+           class="px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition duration-150 shadow-md">
+            退出登录
+        </a>
+    </header>
+
+    <!-- 主内容区域 -->
+    <main class="flex-grow container mx-auto px-4 py-10">
+
+        <!-- 欢迎信息 -->
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">欢迎回来，管理员</h1>
+        <p class="text-xl text-gray-600 mb-10">
+            这是泰星小区管理的仪表板。请选择您要进行的操作。
+        </p>
+
+        <!-- 功能卡片区 (Dashboard Cards) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- 1. 业主管理卡片 -->
+            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl card-link border-l-4 border-indigo-500">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-semibold text-gray-800">业主管理</h2>
+                    <!-- 业主图标 (Lucide-react user-check equivalent in SVG) -->
+                    <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                </div>
+                <p class="text-gray-500 mb-6">查看、添加、修改和删除小区内的所有业主信息。</p>
+                <a href="/owner/list"
+                   class="mt-4 inline-block w-full text-center py-2 bg-indigo-500 text-white font-bold rounded-lg hover:bg-indigo-600 shadow-lg">
+                    进入业主列表
+                </a>
+            </div>
+
+            <!-- 2. 房屋管理卡片 -->
+            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl card-link border-l-4 border-green-500">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-semibold text-gray-800">房屋管理</h2>
+                    <!-- 房屋图标 (Lucide-react home equivalent in SVG) -->
+                    <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6m-6 0h-2a1 1 0 00-1 1v-5a1 1 0 011-1h2.5"></path>
+                    </svg>
+                </div>
+                <p class="text-gray-500 mb-6">管理小区内的房屋单元、楼栋信息及房屋状态。</p>
+                <a href="/house/list"
+                   class="mt-4 inline-block w-full text-center py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 shadow-lg">
+                    进入房屋列表
+                </a>
+            </div>
+
+            <!-- 3. (预留) 更多功能卡片 -->
+            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl card-link border-l-4 border-gray-400 opacity-75">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-semibold text-gray-800">预留功能</h2>
+                    <!-- 锁图标 (Lucide-react lock equivalent in SVG) -->
+                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v3"></path>
+                    </svg>
+                </div>
+                <p class="text-gray-500 mb-6">未来可以扩展缴费、公告或其他小区管理功能。</p>
+                <button disabled
+                        class="mt-4 inline-block w-full text-center py-2 bg-gray-400 text-white font-bold rounded-lg cursor-not-allowed">
+                    即将推出...
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 p-4 text-center text-gray-500 text-sm">
+        &copy; 2025 泰星小区管理系统. All rights reserved.
+    </footer>
+</div>
+</body>
+</html>
