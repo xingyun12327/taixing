@@ -10,45 +10,47 @@ import java.util.List;
 @Mapper
 public interface OwnerMapper {
 
-    // --- 【关键】添加 OwnerResultMap 显式映射 (解决 id_card 字段不显示问题) ---
+    /**
+     * 获取所有业主列表 (仅查询未删除的记录)
+     */
     @Results(id = "OwnerResultMap", value = {
             @Result(property = "id", column = "id"),
             @Result(property = "name", column = "name"),
             @Result(property = "gender", column = "gender"),
             @Result(property = "phone", column = "phone"),
-            // 将数据库列 id_card 映射到实体属性 idCard
             @Result(property = "idCard", column = "id_card"),
             @Result(property = "isDeleted", column = "is_deleted")
     })
-    // ------------------------------------
-
-    /**
-     * 获取所有业主列表 (仅查询未删除的记录)
-     */
     @Select("SELECT id, name, gender, phone, id_card, is_deleted FROM owner WHERE is_deleted = 0")
     List<Owner> findAll();
 
     /**
-     * 根据ID查询业主 (用于编辑功能和数据加载)
+     * 根据ID查询业主
      */
     @ResultMap("OwnerResultMap")
     @Select("SELECT id, name, gender, phone, id_card, is_deleted FROM owner WHERE id = #{id} AND is_deleted = 0")
-    Owner findById(@Param("id") Integer id); // 新增方法
+    Owner findById(@Param("id") Integer id);
 
     /**
-     * 根据电话号码查询业主 (用于新增/编辑时的重复性检查)
-     * 引用 OwnerResultMap 以确保 idCard 字段被映射
+     * 根据电话号码查询业主 (用于新增时的重复性检查)
      */
     @ResultMap("OwnerResultMap")
     @Select("SELECT id, name, gender, phone, id_card, is_deleted FROM owner WHERE phone = #{phone} AND is_deleted = 0")
     Owner findByPhone(@Param("phone") String phone);
 
     /**
-     * 根据身份证号查询业主 (用于新增/编辑时的重复性检查)
+     * 【新增】根据身份证号查询业主 (用于新增时的重复性检查)
+     */
+    @ResultMap("OwnerResultMap") // 引用已注册的 ResultMap
+    @Select("SELECT id, name, gender, phone, id_card, is_deleted FROM owner WHERE id_card = #{idCard} AND is_deleted = 0")
+    Owner findByIdCard(@Param("idCard") String idCard);
+
+    /**
+     * 根据电话号码查询业主 (排除指定ID)，用于更新时的重复性检查
      */
     @ResultMap("OwnerResultMap")
-    @Select("SELECT id, name, gender, phone, id_card, is_deleted FROM owner WHERE id_card = #{idCard} AND is_deleted = 0")
-    Owner findByIdCard(@Param("idCard") String idCard); // 新增方法
+    @Select("SELECT id, name, gender, phone, id_card, is_deleted FROM owner WHERE phone = #{phone} AND id != #{id} AND is_deleted = 0")
+    Owner findByPhoneExcludeId(@Param("phone") String phone, @Param("id") Long id);
 
     /**
      * 新增业主记录

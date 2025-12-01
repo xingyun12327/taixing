@@ -14,6 +14,11 @@ public interface OwnerService {
     List<Owner> list();
 
     /**
+     * 根据ID查询业主信息
+     */
+    Owner findById(Integer id);
+
+    /**
      * 新增业主
      */
     void add(Owner owner);
@@ -22,11 +27,6 @@ public interface OwnerService {
      * 根据ID删除业主 (逻辑删除)
      */
     void delete(Integer id);
-
-    /**
-     * 根据身份证号查询业主 (新增)
-     */
-    Owner findByIdCard(String idCard); // <--- 新增方法声明
 
     /**
      * 更新业主信息
