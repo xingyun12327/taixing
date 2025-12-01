@@ -33,6 +33,14 @@
 <!-- 主内容区域 -->
 <main class="flex-grow container mx-auto px-4 py-8 space-y-10">
 
+  <!-- 错误提示框 (新增) -->
+  <!-- 只有当 model 中存在 'error' 属性时才会显示 -->
+  <div th:if="${error}" class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-sm animate-pulse" role="alert">
+    <p class="font-bold text-lg mb-2">操作失败</p>
+    <!-- 关键修改：使用 <pre> 标签和 Tailwind 样式来显示后端返回的带有换行符的多条错误信息 -->
+    <pre th:text="${error}" class="whitespace-pre-wrap text-sm font-normal m-0 p-0 bg-transparent text-red-700"></pre>
+  </div>
+
   <!-- 业主列表表格卡片 -->
   <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
     <h2 class="text-2xl font-semibold text-gray-800 mb-6">现有业主数据</h2>
@@ -63,7 +71,6 @@
                onclick="return confirm('确认删除该业主吗？此操作不可撤销。');">删除</a>
           </td>
         </tr>
-        <!-- 可以在这里添加一个处理空列表的行，以增强用户体验 -->
         <tr th:if="${#lists.isEmpty(owners)}">
           <td colspan="5" class="px-6 py-4 text-center text-gray-500 text-sm italic">
             暂无业主信息。请使用下方表单新增。
@@ -94,22 +101,23 @@
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
           <option value="男">男</option>
           <option value="女">女</option>
-          <option value="其他">其他</option>
         </select>
       </div>
 
       <!-- 电话 -->
       <div>
-        <label for="phone" class="block text-sm font-medium text-gray-700">电话</label>
+        <label for="phone" class="block text-sm font-medium text-gray-700">电话 (11位)</label>
         <input id="phone" name="phone" type="tel" required
-               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+               placeholder="请输入11位电话号码"/>
       </div>
 
       <!-- 身份证 -->
       <div>
-        <label for="idCard" class="block text-sm font-medium text-gray-700">身份证</label>
+        <label for="idCard" class="block text-sm font-medium text-gray-700">身份证 (13位)</label>
         <input id="idCard" name="idCard" type="text" required
-               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+               placeholder="请输入13位身份证号"/>
       </div>
 
       <!-- 提交按钮 -->
