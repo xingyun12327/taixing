@@ -24,7 +24,12 @@ public interface OwnerService {
     void delete(Integer id);
 
     /**
+     * 根据身份证号查询业主 (新增)
+     */
+    Owner findByIdCard(String idCard); // <--- 新增方法声明
+
+    /**
      * 更新业主信息
      */
-    void update(Owner owner); // <--- 新增的方法
+    void update(Owner owner);
 }
