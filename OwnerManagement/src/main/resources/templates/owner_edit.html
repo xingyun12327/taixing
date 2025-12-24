@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑业主信息</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<header class="bg-white shadow-md p-4 mb-8 sticky top-0 z-10">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-gray-900">📝 编辑业主</h1>
+        <a th:href="@{/}"
+           class="px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition duration-150">
+            ← 返回主页
+        </a>
+    </div>
+</header>
+
+<div class="max-w-4xl mx-auto p-4">
+    <div th:if="${error}"
+         th:text="${error}"
+         class="p-4 mb-4 text-sm text-red-700 bg-red-100 border border-red-400 rounded-lg"
+         role="alert">
+    </div>
+
+    <div class="bg-white shadow-lg rounded-lg p-8 border border-gray-200">
+        <form th:action="@{/owner/update}" th:object="${owner}" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <input type="hidden" th:field="*{id}" />
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">姓名</label>
+                <input type="text" id="name" th:field="*{name}" required
+                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border"/>
+            </div>
+            <div>
+                <label for="gender" class="block text-sm font-medium text-gray-700">性别</label>
+                <select id="gender" th:field="*{gender}" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border bg-white">
+                    <option value="">请选择</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+            <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700">电话号码</label>
+                <input type="text" id="phone" th:field="*{phone}" required
+                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" maxlength="11"/>
+            </div>
+            <div>
+                <label for="idCard" class="block text-sm font-medium text-gray-700">身份证号</label>
+                <input type="text" id="idCard" th:field="*{idCard}" required
+                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" maxlength="13"/>
+            </div>
+            <div class="md:col-span-2 flex justify-end space-x-3 mt-4">
+                <button type="submit"
+                        class="bg-indigo-600 py-2 px-6 text-sm font-medium text-white rounded-md hover:bg-indigo-700 shadow-md transition">
+                    保存修改
+                </button>
+                <a th:href="@{/owner/list}"
+                   class="bg-white py-2 px-6 text-sm font-medium text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 transition">
+                    返回列表
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

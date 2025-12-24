@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑房屋</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<header class="bg-white shadow-md p-4 mb-8">
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold text-gray-800">编辑房屋信息</h1>
+    </div>
+</header>
+
+<main class="container mx-auto px-4">
+    <div class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+        <form th:action="@{/house/update}" method="post" class="space-y-6">
+            <input type="hidden" name="id" th:value="${house.id}">
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400">单元号 (不可修改)</label>
+                    <input type="text" th:value="${house.unit}" readonly
+                           class="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-500 cursor-not-allowed" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400">楼层 (不可修改)</label>
+                    <input type="text" th:value="${house.floor}" readonly
+                           class="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-500 cursor-not-allowed" />
+                </div>
+            </div>
+
+            <div>
+                <label for="ownerName" class="block text-sm font-medium text-gray-700">业主姓名</label>
+                <input id="ownerName" name="ownerName" type="text" th:value="${house.ownerName}" required
+                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+            </div>
+
+            <div>
+                <label for="status" class="block text-sm font-medium text-gray-700">房屋状态</label>
+                <select id="status" name="status" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="未入住" th:selected="${house.status == '未入住'}">未入住</option>
+                    <option value="已入住" th:selected="${house.status == '已入住'}">已入住</option>
+                    <option value="待租" th:selected="${house.status == '待租'}">待租</option>
+                </select>
+            </div>
+
+            <div class="flex items-center space-x-4 pt-4">
+                <button type="submit"
+                        class="flex-1 py-2 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md transition duration-150">
+                    确认修改
+                </button>
+                <a th:href="@{/house/list}"
+                   class="flex-1 py-2 px-4 bg-gray-200 text-center text-gray-700 rounded-lg hover:bg-gray-300 transition duration-150">
+                    取消
+                </a>
+            </div>
+        </form>
+    </div>
+</main>
+
+</body>
+</html>
